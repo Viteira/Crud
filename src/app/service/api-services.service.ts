@@ -15,6 +15,6 @@ export class ApiServicesService {
       headrs: new HttpHeaders({'Content-Type':'application/json'})
     };
     let url = this.serve + api;
-    return this.http.post(url, JSON.stringify(dados), );
+    return this.http.post(url, JSON.stringify(dados));
   }
 }
