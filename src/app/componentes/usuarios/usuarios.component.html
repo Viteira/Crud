@@ -1,48 +1,65 @@
-<span>API de Usuários</span>
-<br><br>
-<button class="btn btn-success" data-toggle="modal"
-data-target="#modal">Adicionar</button>
-<br><br>
+<div class="container mt-4">
+  <span class="titulo">API de Usuários</span>
+  <hr class="mb-4">
 
-<table class="table table-striped ml-2">
-  <td><b>Nome</b></td>
-  <td><b>Email</b></td>
-  <td><b>Senha</b></td>
+  <button class="btn btn-success" data-toggle="modal"
+  data-target="#modal">Adicionar</button>
+  <br><br>
 
-  <tr>
-    <td>Viteira</td>
-    <td>viteira@gmail.com</td>
-    <td>123</td>
-  </tr>
-  <tr>
-    <td>Quixaba</td>
-    <td>quixaba@gmail.com</td>
-    <td>123</td>
-  </tr>
-  <tr>
-    <td>Danillo Souza</td>
-    <td>danillo@gmail.com</td>
-    <td>123</td>
-  </tr>
+  <table class="table table-striped ml-2">
+    <td><b>Nome</b></td>
+    <td><b>Email</b></td>
+    <td><b>Senha</b></td>
+    <td><b>Ações</b></td>
 
-  <tr *ngFor = "let dado of lista">
-    <td>{{dado.nome}}</td>
-    <td>{{dado.email}}</td>
-    <td>{{dado.senha}}</td>
-  </tr>
-</table>
+    <tr>
+      <td>Viteira</td>
+      <td>viteira@gmail.com</td>
+      <td>123</td>
+      <td>
+        <a (click)="editarDados()" data-toggle="modal" data-target="modalEditar">
+          <i class="fa-solid fa-user-pen text-info mr-2"></i>
+        </a>
+        <i class="fa-solid fa-trash text-danger mr-2"></i>
+      </td>
+    </tr>
+    <tr>
+      <td>Quixaba</td>
+      <td>quixaba@gmail.com</td>
+      <td>123</td>
+      <td>
+        <a data-toggle="modal" data-target="modalEditar"><i class="fa-solid fa-user-pen text-info mr-2"></i></a>
+        <i class="fa-solid fa-trash text-danger mr-2"></i>
+      </td>
+    </tr>
+    <tr>
+      <td>Danillo Souza</td>
+      <td>danillo@gmail.com</td>
+      <td>123</td>
+      <td>
+        <a data-toggle="modal" data-target="modalEditar"><i class="fa-solid fa-user-pen text-info mr-2"></i></a>
+        <i class="fa-solid fa-trash text-danger mr-2"></i>
+      </td>
+    </tr>
 
-<!--Conteúdo da janela modal-->
-<div id="modal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Inserir Usuário</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
+    <tr *ngFor = "let dado of lista">
+      <td>{{dado.nome}}</td>
+      <td>{{dado.email}}</td>
+      <td>{{dado.senha}}</td>
+    </tr>
+  </table>
+
+  <!--Conteúdo da janela modal-->
+  <div id= "modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Inserir Usuário</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
           <div class="form-group">
             <label for="exampleInputNome">Nome</label>
             <input type="text" class="form-control" (input)="getDados($event, 'nome')" aria-describedby="emailHelp" placeholder="Seu nome" required>
@@ -55,11 +72,44 @@ data-target="#modal">Adicionar</button>
             <label for="exampleInputPassword1">Senha</label>
             <input type="text" class="form-control" (input)="getDados($event, 'senha')" placeholder="Senha" required>
           </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="cadastrar()">Salvar</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="cadastrar()">Salvar</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        </div>
       </div>
     </div>
+    <!---Janela modal editar-->
+    <div id="modalEditar" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Editar Usuário</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="exampleInputNome">Nome</label>
+              <input type="text" class="form-control" (input)="getDados($event, 'nome')" aria-describedby="emailHelp" placeholder="Seu nome" required>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email</label>
+              <input type="email" class="form-control" (input)="getDados($event, 'usuario')" aria-describedby="emailHelp" placeholder="Seu email" required>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Senha</label>
+              <input type="text" class="form-control" (input)="getDados($event, 'senha')" placeholder="Senha" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Editar</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
   </div>
 </div>
+
+

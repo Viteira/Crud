@@ -51,7 +51,6 @@ export class UsuariosComponent implements OnInit{
         usuario: this.usuario,
         senha: this.senha
       };
-      console.log("pegar dados",dados);
       this.provider.Api(dados, 'apiUsuarios.php')
       .subscribe(data =>{
         if(data=['success']){
@@ -64,7 +63,7 @@ export class UsuariosComponent implements OnInit{
   }
 
   getDados(dado: any, atributo: string){
-
+    console.log("Dados", dado)
     switch (atributo){
       case "nome":
         this.nome = dado.target.value;
@@ -76,5 +75,8 @@ export class UsuariosComponent implements OnInit{
         this.senha = dado.target.value;
         break
     }
+  }
+  editarDados(){
+    console.log("editou");
   }
 }

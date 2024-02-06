@@ -19,6 +19,5 @@ export class ApiServicesService {
     return this.http
       .post(url, JSON.stringify(dados), httpOpitions)
       .pipe(map((res) => res));
-
   }
 }
