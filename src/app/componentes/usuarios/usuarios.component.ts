@@ -15,6 +15,7 @@ export class UsuariosComponent implements OnInit{
   nome: string = '';
   usuario: string = '';
   senha: string = '';
+  id: string = '';
 
   constructor(
     private router: Router,
@@ -76,7 +77,31 @@ export class UsuariosComponent implements OnInit{
         break
     }
   }
-  editarDados(){
-    console.log("editou");
+  editarDados(nome: string, usuario: string, senha: string, id: string){
+    this.nome = nome;
+    this.usuario = usuario;
+    this.senha = senha;
+    this.id = id;
+  }
+
+  editar(){
+    return new Promise(resolve =>{
+      const dados = {
+        requisicao: 'editar',
+        nome: this.nome,
+        usuario: this.usuario,
+        senha: this.senha,
+        id: this.id
+      };
+      this.provider.Api(dados, 'apiUsuarios.php')
+      .subscribe(data => {
+        if(data=['success']){
+          alert('Usuário editado com sucesso!');
+          //location= 'usuarios';
+        }else{
+          alert('Erro ao editar!!')
+        }
+      });
+    });
   }
 }
