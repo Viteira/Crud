@@ -16,6 +16,8 @@ export class UsuariosComponent implements OnInit{
   usuario: string = '';
   senha: string = '';
   id: string = '';
+  titulo: string = '';
+
 
   constructor(
     private router: Router,
@@ -45,26 +47,29 @@ export class UsuariosComponent implements OnInit{
   }
 
   cadastrar(){
-    return new Promise(resolve => {
-      let dados = {
-        requisicao: 'add',
-        nome: this.nome,
-        usuario: this.usuario,
-        senha: this.senha
-      };
-      this.provider.Api(dados, 'apiUsuarios.php')
-      .subscribe(data =>{
-        if(data=['success']){
-
-        }else{
-
-        }
+    if(this.nome !== '' && this.usuario !== '' && this.senha !== ''){
+      return new Promise(resolve => {
+        let dados = {
+          requisicao: 'add',
+          nome: this.nome,
+          usuario: this.usuario,
+          senha: this.senha
+        };
+        this.provider.Api(dados, 'apiUsuarios.php')
+        .subscribe(data =>{
+          if(data=['success']){
+            alert('Usuário cadastrado com sucesso!')
+          }else{
+            alert('Erro ao cadastrar usuário!')
+          }
+        })
       })
-    })
+    }else{
+      return alert('Preencha todos os campos!');
+    }
   }
 
   getDados(dado: any, atributo: string){
-    console.log("Dados", dado)
     switch (atributo){
       case "nome":
         this.nome = dado.target.value;
@@ -75,6 +80,8 @@ export class UsuariosComponent implements OnInit{
       case "senha":
         this.senha = dado.target.value;
         break
+      case "id":
+        this.id = dado.target.value;
     }
   }
   editarDados(nome: string, usuario: string, senha: string, id: string){
@@ -85,23 +92,64 @@ export class UsuariosComponent implements OnInit{
   }
 
   editar(){
-    return new Promise(resolve =>{
-      const dados = {
-        requisicao: 'editar',
-        nome: this.nome,
-        usuario: this.usuario,
-        senha: this.senha,
-        id: this.id
-      };
-      this.provider.Api(dados, 'apiUsuarios.php')
-      .subscribe(data => {
-        if(data=['success']){
-          alert('Usuário editado com sucesso!');
-          //location= 'usuarios';
-        }else{
-          alert('Erro ao editar!!')
-        }
+    if(this.nome !== '' && this.usuario !== '' && this.senha !== ''){
+      return new Promise(resolve =>{
+        const dados = {
+          requisicao: 'editar',
+          nome: this.nome,
+          usuario: this.usuario,
+          senha: this.senha,
+          id: this.id
+        };
+        this.provider.Api(dados, 'apiUsuarios.php')
+        .subscribe(data => {
+          if(data=['success']){
+            alert('Usuário editado com sucesso!');
+            //location= 'usuarios';
+          }else{
+            alert('Erro ao editar!!')
+          }
+        });
       });
-    });
+    }else{
+      return alert('Erro ao editar usuário')
+    }
+  }
+
+  renomearCadastrar(){
+    this.titulo = 'Cadastrar Usuário';
+    console.log('teste', this.titulo)
+  }
+
+  renomearEditar(){
+    this.titulo = 'Editar Usuário';
+    console.log('teste', this.titulo)
+  }
+
+  renomearTitulo(){
+    if(this.id > '0'){
+      this.titulo = 'Cadastrar Usuário';
+    }else{
+      this.titulo = 'Editar Usuário';
+    }
+  }
+
+  excluirUsuario(currentId: string){
+     return new Promise(resolve =>{
+        const dados = {
+          requisicao: 'excluir',
+          id: currentId
+        };
+        this.provider.Api(dados, 'apiUsuarios.php')
+        .subscribe(data => {
+          if(data=['success']){
+            alert('Usuário excluido com sucesso!');
+            //location= 'usuarios';
+          }else{
+            alert('Erro ao excluir usuário!!')
+          }
+        });
+      });
+
   }
 }
