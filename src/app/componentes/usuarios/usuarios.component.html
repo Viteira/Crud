@@ -1,9 +1,33 @@
 <div class="container mt-4">
-  <span class="titulo">API de Usuários</span>
+  <div>
+    <span class="titulo">API de Usuários</span>
+  </div>
+
+
+
+
   <hr class="mb-4">
 
-  <button class="btn btn-success" data-toggle="modal" data-target="#modal" (click)="renomearCadastrar()">Adicionar</button>
-  <br><br>
+  <div class="col-md-8">
+    <div class="">
+      <button class="btn btn-success" data-toggle="modal" data-target="#modal" (click)="renomearCadastrar()">Adicionar</button>
+      <br><br>
+    </div>
+    <div class="col-md-4">
+      <nav class="navbar bg-body-tertiary">
+        <div class="">
+          <form>
+            <input class="form-control" id="fonte" type="search" (input)="''" placeholder="Pesquisar" aria-label="Search">
+            <button class="btn btn-outline-ligth" type="submit"><i class="fa fa-search"  aria-hidden="true"></i></button>
+          </form>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+
+
+
 
   <table class="table table-striped ml-2">
     <td><b>Nome</b></td>
