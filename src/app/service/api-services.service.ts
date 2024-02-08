@@ -1,23 +1,25 @@
+import { Usuario } from './../models/usuario.interface';
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {map} from 'rxjs';
+import {map, take} from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class ApiServicesService {
-  serve:  string = 'http://localhost/apiAngular/';
-
+  serve:  string = 'http://localhost:56097';
+  endPointUser: string ='/Usuarios'
   constructor(private http:HttpClient) { }
 
-  Api(dados: any, api: string){
-    const httpOpitions={
-      headers: new HttpHeaders({'Content-Type':'application/json'})
-    };
-    const url = this.serve + api;
-    return this.http
-      .post(url, JSON.stringify(dados), httpOpitions)
-      .pipe(map((res) => res));
+  getUsers(): Observable<any>{    
+    return this.http.get(this.serve + this.endPointUser);   
+  }
+  postUsers(newUser: Usuario){        
+    return this.http.post<Usuario>(this.serve + this.endPointUser, newUser);
+  }
+  putUsers(editUser: Usuario){    
+    return this.http.put<Usuario>(`${this.serve}${this.endPointUser}/${editUser.usuarioId}`, editUser);
   }
 }

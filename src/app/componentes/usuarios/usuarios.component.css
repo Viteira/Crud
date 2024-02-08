@@ -1,0 +1,14 @@
+.titulo{
+    font-size: 35px;
+}
+.navbar {
+    display: inline;    
+    float: right;
+    padding-top: 0;
+}
+.lupa{
+    float: right;
+}
+.pad0{
+    padding: 0;
+}

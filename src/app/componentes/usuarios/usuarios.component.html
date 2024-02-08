@@ -2,18 +2,35 @@
   <div>
     <span class="titulo">API de Usuários</span>
   </div>
-
-
-
-
-  <hr class="mb-4">
-
-  <div class="col-md-8">
-    <div class="">
-      <button class="btn btn-success" data-toggle="modal" data-target="#modal" (click)="renomearCadastrar()">Adicionar</button>
-      <br><br>
+  <hr />
+  <div>
+    <div class="mb-3">
+      <button
+        class="btn btn-success"
+        data-toggle="modal"
+        data-target="#modal"
+        (click)="renomearCadastrar()"
+      >
+        Adicionar
+      </button>
+      <button class="btn btn-outline-ligth lupa" type="submit">
+        <i class="fa fa-search" aria-hidden="true"></i>
+      </button>
+      <nav class="navbar bg-body-tertiary pr-1">
+        <form>
+          <input
+            class="form-control"
+            id="fonte"
+            type="search"
+            (input)="('')"
+            placeholder="Pesquisar"
+            aria-label="Search"
+          />
+          <!-- <button class="btn btn-outline-ligth lupa" type="submit"><i class="fa fa-search"  aria-hidden="true"></i></button>             -->
+        </form>
+      </nav>
     </div>
-    <div class="col-md-4">
+    <!-- <div class="col-md-3">
       <nav class="navbar bg-body-tertiary">
         <div class="">
           <form>
@@ -22,61 +39,20 @@
           </form>
         </div>
       </nav>
-    </div>
+    </div> -->
   </div>
-
-
-
-
-
   <table class="table table-striped ml-2">
     <td><b>Nome</b></td>
     <td><b>Usuário</b></td>
     <td><b>Senha</b></td>
     <td><b>Ações</b></td>
 
-    <tr>
-      <td>Viteira</td>
-      <td>viteira@gmail.com</td>
-      <td>123</td>
+    <tr *ngFor="let dado of lista">
+      <td>{{ dado.nome }}</td>
+      <td>{{ dado.email }}</td>
+      <td>{{ dado.senha }}</td>
       <td>
-        <a data-toggle="modal" (click)="renomearEditar()" data-target="#modal">
-          <i class="fa-solid fa-user-pen text-info mr-2"></i>
-        </a>
-        <a (click)="excluirUsuario(this.id)" title="Excluir Registro">
-        <i class="fa-solid fa-trash text-danger mr-2"></i>
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td>Quixaba</td>
-      <td>quixaba@gmail.com</td>
-      <td>123</td>
-      <td>
-        <a data-toggle="modal" (click)="renomearEditar()" data-target="#modal">
-          <i class="fa-solid fa-user-pen text-info mr-2"></i>
-        </a>
-        <i class="fa-solid fa-trash text-danger mr-2"></i>
-      </td>
-    </tr>
-    <tr>
-      <td>Danillo Souza</td>
-      <td>danillo@gmail.com</td>
-      <td>123</td>
-      <td>
-        <a data-toggle="modal" (click)="renomearEditar()" data-target="#modal">
-          <i class="fa-solid fa-user-pen text-info mr-2"></i>
-        </a>
-        <i class="fa-solid fa-trash text-danger mr-2"></i>
-      </td>
-    </tr>
-
-    <tr *ngFor = "let dado of lista">
-      <td>{{dado.nome}}</td>
-      <td>{{dado.usuario}}</td>
-      <td>{{dado.senha}}</td>
-      <td>
-        <a data-toggle="modal" (click)="renomearEditar()" data-target="#modal">
+        <a data-toggle="modal" data-target="#modal" (click)="editar(dado)">
           <i class="fa-solid fa-user-pen text-info mr-2"></i>
         </a>
         <i class="fa-solid fa-trash text-danger mr-2"></i>
@@ -85,12 +61,17 @@
   </table>
 
   <!--Conteúdo da janela modal-->
-  <div id= "modal" class="modal fade" role="dialog">
+  <div id="modal" class="modal fade" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">{{titulo}}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <h5 class="modal-title">{{ titulo }}</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -98,30 +79,70 @@
           <div class="modal-body">
             <div class="form-group">
               <label for="exampleInputNome">Nome</label>
-              <input type="text" class="form-control" (input)="getDados($event, 'nome')" aria-describedby="emailHelp" value="{{nome}}" placeholder="Seu nome" required>
+              <input
+                type="text"
+                class="form-control"
+                (input)="pegarDados($event, 'nome')"
+                [value]="nome"
+                placeholder="Seu nome"
+                required
+              />
             </div>
             <div class="form-group">
               <label for="exampleInputEmail1">Email</label>
-              <input type="email" class="form-control" (input)="getDados($event, 'usuario')" aria-describedby="emailHelp" value="{{usuario}}" placeholder="Seu email" required>
+              <input
+                type="email"
+                class="form-control"
+                (input)="pegarDados($event, 'email')"
+                [value]="email"
+                placeholder="Seu email"
+                required
+              />
             </div>
             <div class="form-group">
               <label for="exampleInputPassword1">Senha</label>
-              <input type="text" class="form-control" (input)="getDados($event, 'senha')" value="{{senha}}" placeholder="Senha" required>
+              <input
+                type="text"
+                class="form-control"
+                (input)="pegarDados($event, 'senha')"
+                [value]="senha"
+                placeholder="Senha"
+                required
+              />
             </div>
           </div>
           <div class="modal-footer">
-            <button *ngIf= "titulo === 'Cadastrar Usuário' " type="button" class="btn btn-primary" (click)="cadastrar()" >Salvar</button>
-            <button *ngIf= "titulo !== 'Cadastrar Usuário'" type="button" class="btn btn-primary" (click)="editar()" >Editar</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button
+              *ngIf="titulo === 'Cadastrar Usuário'"
+              (click)="cadastrar()"
+              type="button"
+              class="btn btn-primary"
+            >
+              Salvar
+            </button>
+            <button
+              *ngIf="titulo !== 'Cadastrar Usuário'"
+              type="button"
+              class="btn btn-primary"
+              (click)="putUser()"
+            >
+              Editar
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="fecharModal()"
+              data-dismiss="modal"
+            >
+              Fechar
+            </button>
           </div>
         </form>
       </div>
     </div>
   </div>
 
-
-
-  <!--Conteúdo da janela modal de edição
+  <!-- Conteúdo da janela modal de edição
   <div id= "modalEditar" class="modal fade" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -152,15 +173,4 @@
       </div>
     </div>
   </div>-->
-
-
 </div>
-
-
-
-
-
-
-
-
-
