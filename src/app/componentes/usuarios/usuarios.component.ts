@@ -1,155 +1,95 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { ApiServicesService } from "src/app/service/api-services.service";
+import { Usuario } from './../../models/usuario.interface';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ApiServicesService } from 'src/app/service/api-services.service';
 
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.css']
+  styleUrls: ['./usuarios.component.css'],
 })
-
-export class UsuariosComponent implements OnInit{
-  lista: any = [];
-  limit: number = 10;
-  start: number = 0;
+export class UsuariosComponent implements OnInit {
+  lista: Usuario[] = [];
+  titulo: string;
   nome: string = '';
-  usuario: string = '';
+  email: string = '';
   senha: string = '';
-  id: string = '';
-  titulo: string = '';
-
+  id: number;
 
   constructor(
-    private router: Router,
-    private provider: ApiServicesService
+    private provider: ApiServicesService,
+    private change: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.lista = [];
-    this.start = 0;
     this.carregar();
   }
 
-  carregar(){
-    return new Promise (resolve => {
-      let dados = {
-        requisicao : 'listar',
-        limit : this.limit,
-        start : this.start
-      };
-      this.provider.Api(dados, 'apiUsuarios.php').subscribe(data => {
-        for(let dado of data = ['result']){
-          this.lista.push(dado);
-        }
-        resolve(true);
-      });
+  carregar() {
+    this.provider.getUsers().subscribe({
+      next: (data: Usuario[]) => {
+        this.lista = data;
+      },
     });
   }
 
-  cadastrar(){
-    if(this.nome !== '' && this.usuario !== '' && this.senha !== ''){
-      return new Promise(resolve => {
-        let dados = {
-          requisicao: 'add',
-          nome: this.nome,
-          usuario: this.usuario,
-          senha: this.senha
-        };
-        this.provider.Api(dados, 'apiUsuarios.php')
-        .subscribe(data =>{
-          if(data=['success']){
-            alert('Usuário cadastrado com sucesso!')
-          }else{
-            alert('Erro ao cadastrar usuário!')
-          }
-        })
-      })
-    }else{
-      return alert('Preencha todos os campos!');
-    }
+  cadastrar() {
+    const newUser: Usuario = {
+      nome: this.nome,
+      email: this.email,
+      senha: this.senha,
+    };
+    this.provider.postUsers(newUser).subscribe((res) => {
+      alert('Usuário cadastrado!!');
+      window.location.reload();
+    });
+    console.log('Teste', newUser);
   }
 
-  getDados(dado: any, atributo: string){
-    switch (atributo){
-      case "nome":
+  pegarDados(dado: any, atributo: string) {
+    switch (atributo) {
+      case 'nome':
         this.nome = dado.target.value;
-        break
-      case "usuario":
-        this.usuario = dado.target.value;
-        break
-      case "senha":
+        break;
+      case 'email':
+        this.email = dado.target.value;
+        break;
+      case 'senha':
         this.senha = dado.target.value;
-        break
-      case "id":
-        this.id = dado.target.value;
-    }
-  }
-  editarDados(nome: string, usuario: string, senha: string, id: string){
-    this.nome = nome;
-    this.usuario = usuario;
-    this.senha = senha;
-    this.id = id;
-  }
-
-  editar(){
-    if(this.nome !== '' && this.usuario !== '' && this.senha !== ''){
-      return new Promise(resolve =>{
-        const dados = {
-          requisicao: 'editar',
-          nome: this.nome,
-          usuario: this.usuario,
-          senha: this.senha,
-          id: this.id
-        };
-        this.provider.Api(dados, 'apiUsuarios.php')
-        .subscribe(data => {
-          if(data=['success']){
-            alert('Usuário editado com sucesso!');
-            //location= 'usuarios';
-          }else{
-            alert('Erro ao editar!!')
-          }
-        });
-      });
-    }else{
-      return alert('Erro ao editar usuário')
+        break;
     }
   }
 
-  renomearCadastrar(){
+  putUser(){
+    const newUser: Usuario = {
+      nome: this.nome,
+      email: this.email,
+      senha: this.senha,
+      usuarioId: this.id
+    };
+    this.provider.putUsers(newUser).subscribe((res =>{
+      alert('Usuário Editado!!!')
+      window.location.reload();
+    }))
+  }
+
+  renomearCadastrar() {
     this.titulo = 'Cadastrar Usuário';
-    console.log('teste', this.titulo)
   }
 
-  renomearEditar(){
+  editar(dado: Usuario) {
     this.titulo = 'Editar Usuário';
-    console.log('teste', this.titulo)
+    this.nome = dado.nome
+    this.email = dado.email
+    this.senha = dado.senha
+    this.id = dado.usuarioId || 0
+    this.change.detectChanges();    
   }
 
-  renomearTitulo(){
-    if(this.id > '0'){
-      this.titulo = 'Cadastrar Usuário';
-    }else{
-      this.titulo = 'Editar Usuário';
-    }
-  }
-
-  excluirUsuario(currentId: string){
-     return new Promise(resolve =>{
-        const dados = {
-          requisicao: 'excluir',
-          id: currentId
-        };
-        this.provider.Api(dados, 'apiUsuarios.php')
-        .subscribe(data => {
-          if(data=['success']){
-            alert('Usuário excluido com sucesso!');
-            //location= 'usuarios';
-          }else{
-            alert('Erro ao excluir usuário!!')
-          }
-        });
-      });
-
+  fecharModal() {
+    this.nome = '';
+    this.email = '';
+    this.senha = '';
+    this.change.detectChanges();
   }
 }
