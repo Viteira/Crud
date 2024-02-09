@@ -2,7 +2,7 @@ import { Usuario } from './../../models/usuario.interface';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiServicesService } from 'src/app/service/api-services.service';
-
+//PROJETO CERTO
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
@@ -14,7 +14,8 @@ export class UsuariosComponent implements OnInit {
   nome: string = '';
   email: string = '';
   senha: string = '';
-  id: number;
+  id: number ;
+  searchUser: string= '';
 
   constructor(
     private provider: ApiServicesService,
@@ -38,12 +39,12 @@ export class UsuariosComponent implements OnInit {
       nome: this.nome,
       email: this.email,
       senha: this.senha,
-    };
+           
+    };    
     this.provider.postUsers(newUser).subscribe((res) => {
       alert('Usuário cadastrado!!');
       window.location.reload();
-    });
-    console.log('Teste', newUser);
+    });            
   }
 
   pegarDados(dado: any, atributo: string) {
@@ -73,8 +74,16 @@ export class UsuariosComponent implements OnInit {
     }))
   }
 
-  renomearCadastrar() {
+  deleteUser1(idUser: number){
+    this.provider.deleteUser(idUser).subscribe((res =>{
+      alert('Usuário Deletado!!!')
+      window.location.reload();
+    }));     
+  }
+
+  renomearCadastrar() {    
     this.titulo = 'Cadastrar Usuário';
+    
   }
 
   editar(dado: Usuario) {
@@ -91,5 +100,9 @@ export class UsuariosComponent implements OnInit {
     this.email = '';
     this.senha = '';
     this.change.detectChanges();
+  }
+
+  list(search: string){
+
   }
 }
