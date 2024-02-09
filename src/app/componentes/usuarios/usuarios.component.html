@@ -13,7 +13,7 @@
       >
         Adicionar
       </button>
-      <button class="btn btn-outline-ligth lupa" type="submit">
+      <button class="btn btn-outline-ligth lupa" type="submit" (click)="list(this.searchUser)">
         <i class="fa fa-search" aria-hidden="true"></i>
       </button>
       <nav class="navbar bg-body-tertiary pr-1">
@@ -22,25 +22,15 @@
             class="form-control"
             id="fonte"
             type="search"
-            (input)="('')"
+            (input)="pegarDados($event, 'email'||'nome')"
             placeholder="Pesquisar"
             aria-label="Search"
-          />
-          <!-- <button class="btn btn-outline-ligth lupa" type="submit"><i class="fa fa-search"  aria-hidden="true"></i></button>             -->
+          />         
         </form>
       </nav>
-    </div>
-    <!-- <div class="col-md-3">
-      <nav class="navbar bg-body-tertiary">
-        <div class="">
-          <form>
-            <input class="form-control" id="fonte" type="search" (input)="''" placeholder="Pesquisar" aria-label="Search">
-            <button class="btn btn-outline-ligth" type="submit"><i class="fa fa-search"  aria-hidden="true"></i></button>
-          </form>
-        </div>
-      </nav>
-    </div> -->
+    </div>    
   </div>
+
   <table class="table table-striped ml-2">
     <td><b>Nome</b></td>
     <td><b>Usuário</b></td>
@@ -55,7 +45,9 @@
         <a data-toggle="modal" data-target="#modal" (click)="editar(dado)">
           <i class="fa-solid fa-user-pen text-info mr-2"></i>
         </a>
-        <i class="fa-solid fa-trash text-danger mr-2"></i>
+        <a (click)="dado.usuarioId ? deleteUser1(dado.usuarioId) : null">               
+          <i class="fa-solid fa-trash text-danger mr-2"></i>
+        </a>
       </td>
     </tr>
   </table>
@@ -140,37 +132,5 @@
         </form>
       </div>
     </div>
-  </div>
-
-  <!-- Conteúdo da janela modal de edição
-  <div id= "modalEditar" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Editar Usuário</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="exampleInputNome">Nome</label>
-            <input type="text" class="form-control" (input)="getDados($event, 'nome')" value="{{nome}}" aria-describedby="emailHelp" placeholder="Seu nome" required>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Email</label>
-            <input type="email" class="form-control" (input)="getDados($event,'usuario')" value="{{usuario}}" aria-describedby="emailHelp" placeholder="Seu email" required>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">Senha</label>
-            <input type="text" class="form-control" (input)="getDados($event, 'senha')" value="{{senha}}" aria-describedby="emailHelp" placeholder="Senha" required>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="editar()">Editar</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-        </div>
-      </div>
-    </div>
-  </div>-->
+  </div> 
 </div>
