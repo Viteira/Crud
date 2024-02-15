@@ -12,13 +12,11 @@ import { LoginModel } from 'src/app/models/login.interface';
 })
 export class LoginComponent implements OnInit {
 
-  //email: string = '';
-  nome: string = '';
-  //senha: string = '';
   loginForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-    private router: Router) {}
+    private router: Router,
+    private api: ApiServicesService) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -27,20 +25,15 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  pegarDados(dado: any, atributo: string) {
-    switch (atributo) {      
-      case 'email':
-        //this.email = dado.target.value;
-        break;
-      case 'senha':
-        //this.senha = dado.target.value;
-        break;
-    }
-  }
-
-  submitLogin() {
-    debugger
-    var dadosLogin = this.loginForm.getRawValue() as LoginModel;
+  submitLogin() {        
+    var dadosLogin = this.loginForm.getRawValue() as LoginModel;    
+    this.api.loginUser(dadosLogin).subscribe({
+      next: res =>{
+        if(res.email){
+          this.router.navigate(['/usuarios'])          
+        }        
+      }      
+    });
   }
   
 }
