@@ -82,8 +82,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   renomearCadastrar() {    
-    this.titulo = 'Cadastrar Usuário';
-    
+    this.titulo = 'Cadastrar Usuário';    
   }
 
   editar(dado: Usuario) {
