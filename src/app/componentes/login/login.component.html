@@ -1,7 +1,39 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<div class="conteudo-login">
+	<form class="conteudo-form" [formGroup]="loginForm" (submit)="submitLogin()">
+		<div>
+			<i class="fa-solid fa-user logo"></i>
+		</div>
+		<div>
+			<div>
+				<input type="text"  class="input-login" placeholder="email" formControlName="email">
+			</div>
+			<div class="mensage-error" *ngIf="loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.touched">
+				Campo Obrigatório
+			</div>
+			<div class="mensage-error" *ngIf=" loginForm.get('email')?.errors?.['email']">
+				Formato do Email não é válido!
+			</div>
+		</div>
+		<div>
+			<div>
+				<input type="password" class="input-login" placeholder="senha" formControlName="senha">
+			</div>
+			<div class="mensage-error" *ngIf="loginForm.get('senha')?.errors?.['required'] && loginForm.get('senha')?.touched">
+				Campo Obrigatório
+			</div>						
+		</div>
+		<div>
+			<button class="input-submit" [disabled]="!loginForm.valid">Logar</button>
+		</div>
+	</form>
+</div>
+
+
+
+<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+
     <br><br><br><br><br>
   <div class="login-wrap">
 	<div class="login-html">
@@ -9,18 +41,20 @@
 		<input id="tab-2" type="radio" name="tab" class="for-pwd"><label for="tab-2" class="tab">Forgot Password</label>
 		<div class="login-form">
 			<div class="sign-in-htm">
-				<div class="group">
-					<label for="user" class="label">Username or Email</label>
-					<input id="user" type="text" class="input">
-				</div>
-				<div class="group">
-					<label for="pass" class="label">Password</label>
-					<input id="pass" type="password" class="input" data-type="password">
-				</div>
-				<div class="group">
-					<input type="submit" class="button" value="Sign In">
-				</div>
-				<div class="hr"></div>
+				<form>
+					<div class="group">
+						<label for="user" class="label">Username or Email</label>
+						<input id="user" type="text" class="input" (input)="pegarDados($event, 'senha')">
+					</div>
+					<div class="group">
+						<label for="pass" class="label">Password</label>
+						<input id="pass" type="password" class="input" data-type="password" (input)="pegarDados($event, 'senha')">
+					</div>
+					<div class="group">
+						<input type="submit" class="button" value="Sign In" onclick="login(this.user, this.sen)">
+					</div>
+					<div class="hr"></div>
+				</form>
 			</div>
 			<div class="for-pwd-htm">
 				<div class="group">
@@ -34,4 +68,4 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
