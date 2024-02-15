@@ -25,4 +25,7 @@ export class ApiServicesService {
   deleteUser(userId: number){
     return this.http.delete<Usuario>(`${this.serve}${this.endPointUser}/${userId}`);
   }
+  loginUser(user: any){
+    return this.http.post<any>(`${this.serve}/login`, user)
+  }
 }

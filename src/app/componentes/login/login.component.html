@@ -5,7 +5,7 @@
 		</div>
 		<div>
 			<div>
-				<input type="text"  class="input-login" placeholder="email" formControlName="email">
+				<input class="input-login" placeholder="email" formControlName="email">
 			</div>
 			<div class="mensage-error" *ngIf="loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.touched">
 				Campo Obrigatório
@@ -23,7 +23,7 @@
 			</div>						
 		</div>
 		<div>
-			<button class="input-submit" [disabled]="!loginForm.valid">Logar</button>
+			<button class="input-submit">Logar</button>
 		</div>
 	</form>
 </div>

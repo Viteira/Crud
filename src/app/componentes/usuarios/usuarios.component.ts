@@ -58,7 +58,7 @@ export class UsuariosComponent implements OnInit {
       case 'senha':
         this.senha = dado.target.value;
         break;
-    }
+    } 
   }
 
   putUser(){
