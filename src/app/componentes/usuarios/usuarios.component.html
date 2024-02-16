@@ -1,3 +1,4 @@
+<app-spinner *ngIf="loader"></app-spinner>
 <br><br>
 <div class="container mt-4">
   <div>
@@ -14,7 +15,7 @@
       >
         Adicionar
       </button>
-      <button class="btn btn-outline-ligth lupa" type="submit" (click)="list(this.searchUser)">
+      <button class="btn btn-outline-ligth lupa" type="submit">
         <i class="fa fa-search" aria-hidden="true"></i>
       </button>
       <nav class="navbar bg-body-tertiary pr-1">

@@ -16,6 +16,7 @@ export class UsuariosComponent implements OnInit {
   senha: string = '';
   id: number ;
   searchUser: string= '';
+  loader: boolean = false;
 
   constructor(
     private provider: ApiServicesService,
@@ -34,6 +35,14 @@ export class UsuariosComponent implements OnInit {
     });
   }
 
+  loaderPage(){
+    this.loader = true;        
+    setTimeout(() => {            
+      this.loader = false;
+      window.location.reload();
+    }, 1500);
+  }
+
   cadastrar() {
     const newUser: Usuario = {
       nome: this.nome,
@@ -41,10 +50,10 @@ export class UsuariosComponent implements OnInit {
       senha: this.senha,
            
     };    
-    this.provider.postUsers(newUser).subscribe((res) => {
-      alert('Usuário cadastrado!!');
-      window.location.reload();
-    });            
+    this.provider.postUsers(newUser).subscribe((res) => {   
+           
+    });   
+    this.loaderPage();         
   }
 
   pegarDados(dado: any, atributo: string) {
@@ -69,15 +78,13 @@ export class UsuariosComponent implements OnInit {
       usuarioId: this.id
     };
     this.provider.putUsers(newUser).subscribe((res =>{
-      alert('Usuário Editado!!!')
-      window.location.reload();
+      this.loaderPage();
     }))
   }
 
   deleteUser1(idUser: number){
     this.provider.deleteUser(idUser).subscribe((res =>{
-      alert('Usuário Deletado!!!')
-      window.location.reload();
+      this.loaderPage();
     }));     
   }
 
