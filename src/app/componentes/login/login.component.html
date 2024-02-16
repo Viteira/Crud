@@ -1,8 +1,8 @@
-<div class="conteudo-login">
+<div class="conteudo-login">	
 	<form class="conteudo-form" [formGroup]="loginForm" (submit)="submitLogin()">
 		<div>
 			<i class="fa-solid fa-user logo"></i>
-		</div>
+		</div>		
 		<div>
 			<div>
 				<input class="input-login" placeholder="email" formControlName="email">
@@ -21,14 +21,13 @@
 			<div class="mensage-error" *ngIf="loginForm.get('senha')?.errors?.['required'] && loginForm.get('senha')?.touched">
 				Campo Obrigatório
 			</div>						
-		</div>
+		</div>		
 		<div>
-			<button class="input-submit">Logar</button>
-		</div>
-	</form>
+			<button class="input-submit">Logar</button>			
+		</div>				
+	</form>		
 </div>
-
-
+<app-spinner *ngIf="loader"></app-spinner>
 
 <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>

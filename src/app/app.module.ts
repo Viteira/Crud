@@ -7,12 +7,14 @@ import { ApiServicesService } from './service/api-services.service';
 import { UsuariosComponent } from './componentes/usuarios/usuarios.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SpinnerComponent } from './models/spinner/spinner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UsuariosComponent,
-    LoginComponent
+    LoginComponent,
+    SpinnerComponent
 
   ],
   imports: [
