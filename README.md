@@ -1,6 +1,6 @@
 # Crud
 
-Projeto criado com o [Angular CLI](https://github.com/angular/angular-cli) version 15.2.10.
+Projeto criado com o [Angular CLI](https://github.com/angular/angular-cli) versão 15.2.10.
 Para cadastrar os usuários precisa baixar a api e fazer a conexão com o banco de dados no MySql WorkBench: https://github.com/Viteira/ApiUsuarios
 
 #Melhorias a serem feitas:
