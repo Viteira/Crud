@@ -6,7 +6,6 @@ Para cadastrar os usuários precisa baixar a api e fazer a conexão com o banco 
 <br>
 <hr>
 <h1>#Melhorias a serem feitas:</h1>
-<br>
 -Confrimação de exclusão de usuário.
 <br>
 -Checar se o usuário está logado, para conseguir chegar na rota de cadastrar novos usuários.
